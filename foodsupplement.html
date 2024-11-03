@@ -152,29 +152,28 @@
         background-color: #ffa500; /* Change on hover */
       }
 
-      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
-        top: 0;
+        z-index: 1000;
         left: 0;
+        top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.5);
         align-items: center;
+        justify-content: center;
       }
 
       .modal-content {
-        background-color: #fff;
-        width: 90%;
-        max-width: 500px;
-        padding: 15px;
-        border-radius: 10px;
-        position: relative;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px; /* ลดขนาด modal */
+        max-width: 90%; /* สำหรับหน้าจอเล็ก */
         text-align: center;
+        position: relative;
       }
-
       .modal-close {
         position: absolute;
         top: 10px;
@@ -184,14 +183,20 @@
         font-weight: bold;
         color: #e53935;
       }
-
       .modal-image {
-        width: 60%;
+        max-width: 100%;
         height: auto;
-        margin-bottom: 15px;
-        border-radius: 10px;
+        margin: 10px 0;
       }
 
+      .confirm-button {
+        background-color: #e53935;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
       .modal-title {
         font-size: 1.5em;
         font-weight: bold;
@@ -391,6 +396,26 @@
             <p>🚚 จัดส่งภายใน1-3วัน</p>
             <button class="view-details-button">ดูรายละเอียด</button>
           </div>
+          <div class="product-card" onclick="openModal('product6')">
+            <img
+              src="https://img5.pic.in.th/file/secure-sv1/d8ba7de5-2bf6-406b-9dfe-defe9c6a7f66.jpeg"
+              alt="Product Image"
+            />
+            <h3>Soy protein</h3>
+            <h5>ราคา:  689 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product7')">
+            <img
+              src="https://img5.pic.in.th/file/secure-sv1/bad701e5-75da-4214-ac5b-24f4286aa3a8.jpeg"
+              alt="Product Image"
+            />
+            <h3>calcium</h3>
+            <h5>ราคา: 357 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
         </div>
       </div>
 
@@ -410,6 +435,22 @@
               ซื้อทันที
             </button>
           </div>
+        </div>
+      </div>
+      <!-- New Buy Now Modal -->
+      <div class="modal" id="buyNowModal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeBuyNowModal()">&times;</span>
+          <h2>รายละเอียดการชำระเงิน</h2>
+          <img
+            src="https://img2.pic.in.th/pic/e6a1336c-4e67-43f9-816f-f821ab5881fa.jpeg"
+            alt="Payment Details"
+            class="modal-image"
+          />
+          <p>กรุณายืนยันการชำระเงินของคุณ</p>
+          <button class="confirm-button" onclick="confirmPayment()">
+            ยืนยันการชำระเงิน
+          </button>
         </div>
       </div>
     </main>
@@ -487,6 +528,20 @@
             image:
               "https://img5.pic.in.th/file/secure-sv1/5225d66332d5cb038.jpeg",
           },
+          product6: {
+            title: "Soy protein",
+            price: "฿689",
+            description: "3FITWHEY 100% ORGANIC SOY PROTEIN ISOLATE ขนาด 5 lb โปรตีน 30 กรัม น้ำตาล 0 กรัม",
+            image:
+              "https://img5.pic.in.th/file/secure-sv1/d8ba7de5-2bf6-406b-9dfe-defe9c6a7f66.jpeg",
+          },
+          product7: {
+            title: "Calcium",
+            price: "฿357",
+            description: "NIKOCAL นิโคแคล อาหารเสริม แคลเซียม เพิ่มความสูง บำรุงกระดูกข้อต่อ ลดปวด เข่า กระดูก",
+            image:
+              "https://img5.pic.in.th/file/secure-sv1/bad701e5-75da-4214-ac5b-24f4286aa3a8.jpeg",
+          },
         };
 
         const productData = products[product];
@@ -529,6 +584,15 @@
         } else {
           alert("ข้อมูลสินค้าผิดพลาด!");
         }
+      }
+      // Function to show buyNowModal
+      function buyNow() {
+        document.getElementById("buyNowModal").style.display = "block";
+      }
+
+      // Function to close buyNowModal
+      function closeBuyNowModal() {
+        document.getElementById("buyNowModal").style.display = "none";
       }
     </script>
   </body>
