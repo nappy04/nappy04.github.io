@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>บริษัทขายอุปกรณ์ฟิตเนส</title>
+    <title>fitjung</title>
     <link rel="stylesheet" href="index.css" />
     <style>
       /* styles.css */
@@ -153,29 +153,28 @@
         background-color: #ffa500; /* Change on hover */
       }
 
-      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
-        top: 0;
+        z-index: 1000;
         left: 0;
+        top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.5);
         align-items: center;
+        justify-content: center;
       }
 
       .modal-content {
-        background-color: #fff;
-        width: 90%;
-        max-width: 500px;
+        background-color: white;
         padding: 20px;
-        border-radius: 10px;
-        position: relative;
+        border-radius: 8px;
+        width: 300px; /* ลดขนาด modal */
+        max-width: 90%; /* สำหรับหน้าจอเล็ก */
         text-align: center;
+        position: relative;
       }
-
       .modal-close {
         position: absolute;
         top: 10px;
@@ -185,12 +184,19 @@
         font-weight: bold;
         color: #e53935;
       }
-
       .modal-image {
-        width: 100%;
+        max-width: 100%;
         height: auto;
-        margin-bottom: 15px;
-        border-radius: 10px;
+        margin: 10px 0;
+      }
+
+      .confirm-button {
+        background-color: #e53935;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
       }
 
       .modal-title {
@@ -433,6 +439,22 @@
           </div>
         </div>
       </div>
+      <!-- New Buy Now Modal -->
+      <div class="modal" id="buyNowModal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeBuyNowModal()">&times;</span>
+          <h2>รายละเอียดการชำระเงิน</h2>
+          <img
+            src="https://img2.pic.in.th/pic/e6a1336c-4e67-43f9-816f-f821ab5881fa.jpeg"
+            alt="Payment Details"
+            class="modal-image"
+          />
+          <p>กรุณายืนยันการชำระเงินของคุณ</p>
+          <button class="confirm-button" onclick="confirmPayment()">
+            ยืนยันการชำระเงิน
+          </button>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">
@@ -561,6 +583,15 @@
         } else {
           alert("ข้อมูลสินค้าผิดพลาด!");
         }
+      }
+      // Function to show buyNowModal
+      function buyNow() {
+        document.getElementById("buyNowModal").style.display = "block";
+      }
+
+      // Function to close buyNowModal
+      function closeBuyNowModal() {
+        document.getElementById("buyNowModal").style.display = "none";
       }
     </script>
   </body>
