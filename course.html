@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>บริษัทขายอุปกรณ์ฟิตเนส</title>
+    <style>
+      /* styles.css */
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #360944;
+        margin: 0;
+        padding: 0; /* Remove padding to use flexbox */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Full height layout */
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      /* Navbar Styling with Effects */
+      .navbar {
+        background-color: #1f0523;
+        color: #fff;
+        padding: 10px 0; /* Adjust padding for better aesthetics */
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        transition: background-color 0.3s ease, padding 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        background-color: #222;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        padding: 5px 0; /* Shrink padding on scroll */
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2em;
+        font-weight: 300;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .nav-links li a:hover {
+        color: #ffa500;
+        transform: scale(1.1);
+      }
+
+      .search-bar {
+        display: flex;
+        gap: 10px;
+      }
+
+      .search-bar input {
+        padding: 5px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .search-bar button {
+        padding: 5px 10px;
+        background-color: #6b1f1f;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        font-size: 1.2em;
+      }
+
+      .search-bar button:hover {
+        background-color: #ffa500;
+      }
+
+      /* Main Content */
+      main {
+        flex: 1;
+        padding: 80px 15px 20px;
+      }
+
+      /* Product Cards */
+      .product-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .product-card {
+        width: 200px;
+        cursor: pointer;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        background-color: white;
+        transition: transform 0.2s; /* Add hover effect */
+      }
+
+      .product-card:hover {
+        transform: scale(1.05); /* Scale effect on hover */
+      }
+
+      .product-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .product-card h3,
+      .product-card h5,
+      .product-card p {
+        margin: 10px 0;
+      }
+
+      .view-details-button {
+        background-color: #ffc107;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: background-color 0.3s; /* Smooth transition */
+      }
+
+      .view-details-button:hover {
+        background-color: #ffa500; /* Change on hover */
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: #fff;
+        width: 90%;
+        max-width: 500px;
+        padding: 20px;
+        border-radius: 10px;
+        position: relative;
+        text-align: center;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+        color: #e53935;
+      }
+
+      .modal-image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+        border-radius: 10px;
+      }
+
+      .modal-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .modal-price {
+        font-size: 1.2em;
+        color: #e53935;
+        margin: 10px 0;
+      }
+
+      .modal-description {
+        color: #555;
+        margin: 10px 0;
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+      }
+
+      .modal-button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .cart-button {
+        background-color: #ffc107;
+        color: #333;
+      }
+
+      .buy-button {
+        background-color: #e53935;
+        color: #fff;
+      }
+
+      .footer {
+        background-color: #1f0523;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .social-icon img {
+        width: 30px;
+        height: auto;
+        transition: transform 0.3s ease;
+      }
+
+      .social-icon img:hover {
+        transform: scale(1.1);
+      }
+
+      .contact-info {
+        margin-top: 10px;
+      }
+
+      .footer a {
+        color: #ffa500;
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      .logo img {
+        height: 70px;
+        width: auto;
+      }
+
+      .cart-btn {
+        background-color: #6b1f1f;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-left: 10px;
+        padding: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .cart-btn img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .cart-btn:hover {
+        background-color: #ffa500;
+      }
+      h1 {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <div class="logo">
+          <img
+            src="https://img5.pic.in.th/file/secure-sv1/c5e73acb-e660-4ba8-a134-224cc9d6c269.jpeg"
+            alt="Logo"
+          />
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">หน้าหลัก</a></li>
+          <li><a href="workoutcourse.html">อุปกรณ์ออกกำลังกาย</a></li>
+          <li><a href="course.html">คอร์สเรียน</a></li>
+          <li><a href="foodsupplement.html">อาหารเสริม</a></li>
+          <li><a href="exercise.html">เครื่องออกกำลังกาย</a></li>
+        </ul>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="ค้นหา..."
+            aria-label="Search Products"
+          />
+          <button type="button">ค้นหา</button>
+          <button class="cart-btn" onclick="window.location.href='cart.html'">
+            Cart
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <h1>คอร์สเรียน</h1>
+        <div class="product-container">
+          <div class="product-card" onclick="openModal('product1')">
+            <img
+              src="https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif"
+              alt="Product Image"
+              class="modal-image"
+            />
+            <h3>คอร์สออกกำลังกาย แบบไม่มีอุปกรณ์</h3>
+            <h5>ราคา: 500 บาท</h5>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product2')">
+            <img
+              src="https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif"
+              alt="Product Image"
+            />
+            <h3>คอร์สออกกำลังกายกายแบบมีอุปกรณ์</h3>
+            <h5>ราคา: 500 บาท</h5>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product3')">
+            <img
+              src="https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif"
+              alt="Product Image"
+            />
+            <h3>คอร์สออกกำลังกายดัมเบล</h3>
+            <h5>ราคา: 500 บาท</h5>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal" id="productModal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeModal()">&times;</span>
+          <img class="modal-image" id="modalImage" src="" alt="Product Image" />
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <h3 class="modal-price" id="modalPrice"></h3>
+          <p class="modal-description" id="modalDescription"></p>
+          <div class="modal-actions">
+            <button class="modal-button cart-button" onclick="addToCart()">
+              เพิ่มไปยังตะกร้า
+            </button>
+            <button class="modal-button buy-button" onclick="buyNow()">
+              ซื้อทันที
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="social-links">
+          <div class="social-icon">
+            <a
+              href="https://www.facebook.com/profile.php?id=61568082364112&mibextid=ZbWKwL"
+            >
+              Facebook
+            </a>
+          </div>
+          <div class="social-icon">
+            <a
+              href="https://www.instagram.com/fitjung_3.2?igsh=NGVudnkybGEyeWpt"
+              >Instagram</a
+            >
+          </div>
+        </div>
+        <div class="contact-info">
+          <p>
+            ติดต่อเรา:
+            <a href="02-1017-9553">02-1017-9553</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ตัวแปรที่ใช้เก็บข้อมูลสินค้าปัจจุบัน
+      let currentProduct = {};
+
+      // Modal functions
+      function openModal(product) {
+        const modal = document.getElementById("productModal");
+        const titleElement = document.getElementById("modalTitle");
+        const priceElement = document.getElementById("modalPrice");
+        const descriptionElement = document.getElementById("modalDescription");
+        const imageElement = document.getElementById("modalImage");
+
+        // Sample data, replace with actual product data
+        const products = {
+          product1: {
+            title: "คอร์สออกกำลังกาย แบบไม่มีอุปกรณ์",
+            price: "฿500",
+            description: "5 วัน5 ",
+            image:
+              "https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif",
+          },
+          product2: {
+            title: "คอร์สออกกำลังกายกายแบบมีอุปกรณ์",
+            price: "฿500",
+            description: "5 วัน",
+            image:
+              "https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif",
+          },
+          product3: {
+            title: "คอร์สออกกำลังกายดัมเบล",
+            price: "฿500",
+            description: "5 วัน",
+            image:
+              "https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif",
+          },
+        };
+
+        currentProduct = products[product];
+
+        titleElement.innerText = currentProduct.title;
+        priceElement.innerText = currentProduct.price;
+        descriptionElement.innerText = currentProduct.description;
+        imageElement.src = currentProduct.image;
+
+        modal.style.display = "flex";
+      }
+
+      // ฟังก์ชันสำหรับปิด Modal
+      function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+      }
+
+      // ฟังก์ชันสำหรับเพิ่มสินค้าไปยังตะกร้า
+      function addToCart() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // ตรวจสอบให้แน่ใจว่า currentProduct มีค่าต่าง ๆ
+        if (
+          currentProduct &&
+          currentProduct.image &&
+          currentProduct.title &&
+          currentProduct.price
+        ) {
+          cart.push(currentProduct);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          alert("เพิ่มสินค้าลงในตะกร้าเรียบร้อยแล้ว!");
+          closeModal();
+        } else {
+          alert("ข้อมูลสินค้าผิดพลาด!");
+        }
+      }
+    </script>
+  </body>
+</html>

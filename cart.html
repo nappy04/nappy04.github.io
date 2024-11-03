@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ตะกร้าสินค้า</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #1f0523; /* เปลี่ยนสีพื้นหลังของ body */
+        color: rgb(0, 0, 0); /* เปลี่ยนสีข้อความให้มองเห็นได้ */
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #ffffff; /* สีพื้นหลังของ container เพื่อให้ดูตัดกับพื้นหลัง */
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+      .cart-item h3 {
+        margin: 0;
+        color: rgb(255, 254, 254); /* เปลี่ยนสีหัวข้อสินค้าให้เป็นสีขาว */
+      }
+      .cart-item img {
+        width: 80px;
+        height: auto;
+        margin-right: 10px;
+      }
+      .cart-item p {
+        margin: 0;
+        color: #ddd; /* สีของข้อความราคา */
+      }
+      .cart-item .price {
+        color: #e53935;
+        font-weight: bold;
+      }
+      .remove-button {
+        background-color: #e53935;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .total-container {
+        display: flex;
+        justify-content: space-between; /* จัดให้มีระยะห่างระหว่างยอดเงินรวมกับปุ่มชำระเงิน */
+        align-items: center; /* จัดแนวให้ปุ่มและยอดเงินอยู่ในแนวเดียวกัน */
+        margin-top: 20px; /* ระยะห่างด้านบน */
+      }
+      .total {
+        font-size: 20px;
+        font-weight: bold;
+        color: #000000; /* เปลี่ยนสีของยอดเงินรวมให้เป็นสีขาว */
+        cursor: pointer; /* เปลี่ยน cursor เป็น pointer เพื่อให้ดูเหมือนว่ากดได้ */
+      }
+      .back-button {
+        background-color: #7305bd; /* สีพื้นหลังปุ่มกลับ */
+        color: white; /* สีข้อความปุ่ม */
+        border: none; /* ไม่มีกรอบ */
+        padding: 10px 15px; /* Padding ของปุ่ม */
+        cursor: pointer; /* เปลี่ยน cursor เป็น pointer */
+        border-radius: 5px; /* มุมโค้ง */
+        margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+      }
+      .payment-button {
+        background-color: #7305bd; /* สีพื้นหลังปุ่มชำระเงิน */
+        color: white; /* สีข้อความปุ่ม */
+        border: none; /* ไม่มีกรอบ */
+        padding: 10px 15px; /* Padding ของปุ่ม */
+        cursor: pointer; /* เปลี่ยน cursor เป็น pointer */
+        border-radius: 5px; /* มุมโค้ง */
+      }
+      /* Modal Styles */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto; /* Center the modal */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Width of the modal */
+        max-width: 600px; /* Max width for larger screens */
+        border-radius: 8px; /* Rounded corners */
+        position: absolute; /* Change positioning */
+        top: 50%; /* Position from the top */
+        left: 50%; /* Position from the left */
+        transform: translate(-50%, -50%); /* Translate back to center */
+      }
+      .modal-image {
+        display: block; /* Make the image a block */
+        margin: 0 auto; /* Center the image */
+        max-width: 80%; /* Max width of the image */
+        height: auto; /* Maintain aspect ratio */
+      }
+
+      .close {
+        color: #aaa;
+        float: right; /* ชิดขวา */
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ตะกร้าสินค้า</h1>
+      <button class="back-button" onclick="window.location.href='index.html'">
+        กลับไปหน้าแรก
+      </button>
+      <div id="cartItems"></div>
+      <div class="total-container">
+        <div class="total" id="totalPrice" onclick="showModal()">
+          ยอดเงินรวม: 0 บาท
+        </div>
+        <button class="payment-button" onclick="showModal()">ชำระเงิน</button>
+      </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>รายละเอียดการชำระเงิน</h2>
+        <img
+          src="https://img2.pic.in.th/pic/e6a1336c-4e67-43f9-816f-f821ab5881fa.jpeg"
+          alt="Payment Image"
+          class="modal-image"
+        />
+        <p>ยอดเงินรวม: <span id="modalTotalPrice">0</span> บาท</p>
+        <p>กรุณายืนยันการชำระเงินของคุณ</p>
+        <button class="payment-button" onclick="confirmPayment()">
+          ยืนยันการชำระเงิน
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // ดึงข้อมูลสินค้าในตะกร้าจาก Local Storage
+      function loadCart() {
+        let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartContainer = document.getElementById("cartItems");
+        const totalPriceElement = document.getElementById("totalPrice");
+        let total = 0; // ตัวแปรสำหรับเก็บยอดเงินรวม
+
+        if (cartItems.length === 0) {
+          cartContainer.innerHTML = "<p>ยังไม่มีสินค้าในตะกร้า</p>";
+          totalPriceElement.textContent = "ยอดเงินรวม: 0 บาท";
+        } else {
+          cartContainer.innerHTML = cartItems
+            .map((item, index) => {
+              if (item && item.image && item.title && item.price) {
+                const price = parseFloat(item.price.replace(/[^0-9.-]+/g, ""));
+                total += isNaN(price) ? 0 : price;
+
+                return `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.title}">
+            <div>
+              <h3>${item.title}</h3>
+              <p class="price">${item.price} บาท</p>
+            </div>
+            <button class="remove-button" onclick="removeFromCart(${index})">ลบ</button>
+          </div>
+        `;
+              } else {
+                return ""; // ส่งคืนค่าว่างหากข้อมูลไม่ถูกต้อง
+              }
+            })
+            .join("");
+
+          totalPriceElement.textContent = `ยอดเงินรวม: ${total.toFixed(2)} บาท`;
+          document.getElementById("modalTotalPrice").textContent =
+            total.toFixed(2); // อัปเดตยอดเงินใน modal
+        }
+      }
+
+      // ฟังก์ชันลบสินค้าจากตะกร้า
+      function removeFromCart(index) {
+        let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        cartItems.splice(index, 1); // ลบสินค้าที่เลือก
+        localStorage.setItem("cart", JSON.stringify(cartItems)); // อัปเดต Local Storage
+        loadCart(); // โหลดตะกร้าใหม่
+      }
+
+      // ฟังก์ชันแสดง modal
+      function showModal() {
+        document.getElementById("myModal").style.display = "block"; // แสดง modal
+      }
+
+      // ฟังก์ชันปิด modal
+      function closeModal() {
+        document.getElementById("myModal").style.display = "none"; // ซ่อน modal
+      }
+
+      // ฟังก์ชันยืนยันการชำระเงิน
+      function confirmPayment() {
+        // เพิ่มโค้ดสำหรับการชำระเงินที่นี่
+        alert("ชำระเงินสำเร็จ!"); // ตัวอย่างการแจ้งเตือนเมื่อชำระเงินสำเร็จ
+        closeModal(); // ปิด modal
+      }
+
+      // เรียกใช้ฟังก์ชันโหลดข้อมูลสินค้าในตะกร้า
+      loadCart();
+    </script>
+  </body>
+</html>

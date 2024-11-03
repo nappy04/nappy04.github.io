@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Corporate Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="split-container">
+        <div class="brand-side">
+            <div class="brand-content">
+                <div class="brand-logo">COMPANY</div>
+                <p class="brand-text">
+                    ยินดีต้อนรับสู่ระบบจัดการข้อมูลองค์กร<br>
+                    เพื่อการทำงานที่มีประสิทธิภาพสูงสุด
+                </p>
+            </div>
+        </div>
+        
+        <div class="login-side">
+            <div class="login-container">
+                <div class="login-header">
+                    <h2>เข้าสู่ระบบ</h2>
+                    <p>กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="text" id="username" required>
+                        <label for="username">ชื่อผู้ใช้ หรือ อีเมล</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="password" required>
+                        <label for="password">รหัสผ่าน</label>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label class="remember-me">
+                            <input type="checkbox">
+                            <span>จดจำการเข้าสู่ระบบ</span>
+                        </label>
+                        <a href="#" class="forgot-pass">ลืมรหัสผ่าน?</a>
+                    </div>
+
+                    <button type="submit" class="btn" class="back-button" onclick="window.location.href='index.html'">
+                        เข้าสู่ระบบ
+                        <div class="spinner"></div>
+                    </button>
+
+                    <div class="divider">
+                        <span>หรือ</span>
+                    </div>
+
+                    <div class="sso-options">
+                        <button type="button" class="sso-btn">
+                            SSO Login
+                        </button>
+                        <button type="button" class="sso-btn">
+                            AD Login
+                        </button>
+                    </div>
+
+                    <div class="help-text">
+                        พบปัญหาการใช้งาน? <a href="#">ติดต่อฝ่าย IT</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
