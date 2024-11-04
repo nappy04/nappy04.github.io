@@ -1,64 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>Corporate Login</title>
-    <link rel="stylesheet" href="login.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
     <div class="split-container">
-      <div class="brand-side">
-        <div class="brand-content">
-          <img
-            src="https://img2.pic.in.th/pic/1a638cda-51fc-42cf-917f-967f79a11cf9-Photoroom.png"
-            alt=""
-            style="width: 530px; height: auto"
-          />
+        <div class="brand-side">
+            <div class="brand-content">
+                <img src="https://img2.pic.in.th/pic/1a638cda-51fc-42cf-917f-967f79a11cf9-Photoroom.png" alt="" style="width: 530px; height: auto;">
+            </div>
+            
         </div>
-      </div>
+        
+        <div class="login-side">
+            <div class="login-container">
+                <div class="login-header">
+                    <h2>เข้าสู่ระบบ</h2>
+                    <p>กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
+                </div>
 
-      <div class="login-side">
-        <div class="login-container">
-          <div class="login-header">
-            <h2>เข้าสู่ระบบ</h2>
-            <p>กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
-          </div>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="text" id="username" required>
+                        <label for="username">ชื่อผู้ใช้ หรือ อีเมล</label>
+                    </div>
 
-          <form id="loginForm">
-            <div class="input-group">
-              <input type="text" id="username" required />
-              <label for="username">ชื่อผู้ใช้ หรือ อีเมล</label>
+                    <div class="input-group">
+                        <input type="password" id="password" required>
+                        <label for="password">รหัสผ่าน</label>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label class="remember-me">
+                            <input type="checkbox">
+                            <span>จดจำการเข้าสู่ระบบ</span>
+                        </label>
+                       
+                    </div>
+
+                    <button type="submit" class="btn" class="back-button" onclick="window.location.href='index.html'">
+                        เข้าสู่ระบบ
+                        <div class="spinner"></div>
+                    </button>
+
+                
+
+                
+
+                    <div class="help-text">
+                        พบปัญหาการใช้งาน? <a href="#">ติดต่อฝ่าย IT</a>
+                    </div>
+                </form>
             </div>
-
-            <div class="input-group">
-              <input type="password" id="password" required />
-              <label for="password">รหัสผ่าน</label>
-            </div>
-
-            <div class="remember-forgot">
-              <label class="remember-me">
-                <input type="checkbox" />
-                <span>จดจำการเข้าสู่ระบบ</span>
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              class="btn"
-              class="back-button"
-              onclick="window.location.href='index.html'"
-            >
-              เข้าสู่ระบบ
-              <div class="spinner"></div>
-            </button>
-
-            <div class="help-text">
-              พบปัญหาการใช้งาน? <a href="#">ติดต่อฝ่าย IT</a>
-            </div>
-          </form>
         </div>
-      </div>
     </div>
     <script src="login.js"></script>
-  </body>
+</body>
 </html>
