@@ -13,10 +13,12 @@
         font-family: Arial, sans-serif;
         background-color: #360944;
         margin: 0;
-        padding: 0; /* Remove padding to use flexbox */
+        padding: 0;
+        /* Remove padding to use flexbox */
         display: flex;
         flex-direction: column;
-        min-height: 100vh; /* Full height layout */
+        min-height: 100vh;
+        /* Full height layout */
       }
 
       .container {
@@ -29,7 +31,8 @@
       .navbar {
         background-color: #1f0523;
         color: #fff;
-        padding: 10px 0; /* Adjust padding for better aesthetics */
+        padding: 10px 0;
+        /* Adjust padding for better aesthetics */
         position: fixed;
         width: 100%;
         top: 0;
@@ -41,7 +44,8 @@
       .navbar.scrolled {
         background-color: #222;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        padding: 5px 0; /* Shrink padding on scroll */
+        padding: 5px 0;
+        /* Shrink padding on scroll */
       }
 
       .navbar .container {
@@ -118,11 +122,13 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
         background-color: white;
-        transition: transform 0.2s; /* Add hover effect */
+        transition: transform 0.2s;
+        /* Add hover effect */
       }
 
       .product-card:hover {
-        transform: scale(1.05); /* Scale effect on hover */
+        transform: scale(1.05);
+        /* Scale effect on hover */
       }
 
       .product-card img {
@@ -147,11 +153,13 @@
         cursor: pointer;
         width: 100%;
         font-weight: bold;
-        transition: background-color 0.3s; /* Smooth transition */
+        transition: background-color 0.3s;
+        /* Smooth transition */
       }
 
       .view-details-button:hover {
-        background-color: #ffa500; /* Change on hover */
+        background-color: #ffa500;
+        /* Change on hover */
       }
 
       .modal {
@@ -171,11 +179,14 @@
         background-color: white;
         padding: 20px;
         border-radius: 8px;
-        width: 300px; /* ลดขนาด modal */
-        max-width: 90%; /* สำหรับหน้าจอเล็ก */
+        width: 300px;
+        /* ลดขนาด modal */
+        max-width: 90%;
+        /* สำหรับหน้าจอเล็ก */
         text-align: center;
         position: relative;
       }
+
       .modal-close {
         position: absolute;
         top: 10px;
@@ -185,6 +196,7 @@
         font-weight: bold;
         color: #e53935;
       }
+
       .modal-image {
         max-width: 100%;
         height: auto;
@@ -245,32 +257,43 @@
       .footer {
         background-color: #1f0523;
         color: #fff;
-        padding: 10px 15px; /* Adjust padding for better alignment */
-        text-align: left; /* Align text to the left */
+        padding: 10px 15px;
+        /* Adjust padding for better alignment */
+        text-align: left;
+        /* Align text to the left */
       }
 
       .footer-content {
-        max-width: 1200px; /* Maintain max width */
-        margin: 0 auto; /* Center the footer on large screens */
+        max-width: 1200px;
+        /* Maintain max width */
+        margin: 0 auto;
+        /* Center the footer on large screens */
       }
 
       .social-links {
-        display: flex; /* Use flexbox for horizontal alignment */
-        gap: 20px; /* Space between social links */
+        display: flex;
+        /* Use flexbox for horizontal alignment */
+        gap: 20px;
+        /* Space between social links */
       }
 
       .social-icon a {
-        color: white; /* Change icon color */
-        text-decoration: none; /* Remove underline from links */
+        color: white;
+        /* Change icon color */
+        text-decoration: none;
+        /* Remove underline from links */
       }
 
       .social-icon i {
-        margin-right: 5px; /* Space between icon and text */
-        font-size: 1.2em; /* Adjust size of icons */
+        margin-right: 5px;
+        /* Space between icon and text */
+        font-size: 1.2em;
+        /* Adjust size of icons */
       }
 
       .contact-info {
-        margin-top: 10px; /* Space above contact info */
+        margin-top: 10px;
+        /* Space above contact info */
       }
 
       .footer a {
@@ -305,11 +328,36 @@
       .cart-btn:hover {
         background-color: #ffa500;
       }
+
       h1 {
         color: #fff;
       }
+
+      .notification {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        font-size: 16px;
+        z-index: 1000;
+        transition: opacity 0.3s ease;
+      }
+
+      .notification.success {
+        background-color: #4caf50;
+        /* สีเขียวสำหรับข้อความสำเร็จ */
+      }
+
+      .notification.error {
+        background-color: #f44336;
+        /* สีแดงสำหรับข้อความผิดพลาด */
+      }
     </style>
   </head>
+
   <body>
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
@@ -447,7 +495,6 @@
             alt="Payment Details"
             class="modal-image"
           />
-         
         </div>
       </div>
     </main>
@@ -558,11 +605,11 @@
         document.getElementById("productModal").style.display = "none";
       }
 
-      /// ฟังก์ชันสำหรับเพิ่มสินค้าไปยังตะกร้า
+      // ฟังก์ชันสำหรับเพิ่มสินค้าไปยังตะกร้า
       function addToCart() {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // ตรวจสอบให้แน่ใจว่า currentProduct มีค่าต่าง ๆ
+        // ตรวจสอบให้แน่ใจว่า currentProduct มีค่าต่าง ๆ ครบถ้วน
         if (
           currentProduct &&
           currentProduct.image &&
@@ -571,11 +618,24 @@
         ) {
           cart.push(currentProduct);
           localStorage.setItem("cart", JSON.stringify(cart));
-          alert("เพิ่มสินค้าลงในตะกร้าเรียบร้อยแล้ว!");
+          showNotification("เพิ่มสินค้าลงในตะกร้าเรียบร้อยแล้ว!"); // ใช้การแจ้งเตือนแบบใหม่
           closeModal();
         } else {
-          alert("ข้อมูลสินค้าผิดพลาด!");
+          showNotification("ข้อมูลสินค้าผิดพลาด!", "error"); // แสดงการแจ้งเตือนข้อผิดพลาด
         }
+      }
+
+      // ฟังก์ชันสำหรับแสดงการแจ้งเตือน
+      function showNotification(message, type = "success") {
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.innerText = message;
+        document.body.appendChild(notification);
+
+        // ให้การแจ้งเตือนแสดงผลสักครู่แล้วหายไป
+        setTimeout(() => {
+          notification.remove();
+        }, 3000); // แสดงการแจ้งเตือนเป็นเวลา 3 วินาที
       }
       // Function to show buyNowModal
       function buyNow() {
