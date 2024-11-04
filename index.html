@@ -1,381 +1,628 @@
 <!DOCTYPE html>
 <html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fitjung</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #360944;
+        margin: 0;
+        padding: 0; /* Remove padding to use flexbox */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Full height layout */
+        background-image: url("https://img2.pic.in.th/pic/FITJUNG_20241103_074311_0000d497d78fe2d712ed.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>fitjung</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #360944;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background-image: url("https://img2.pic.in.th/pic/FITJUNG_20241103_074311_0000d497d78fe2d712ed.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
+      /* Navbar Styling with Effects */
+      .navbar {
+        background-color: #1f0523;
+        color: #fff;
+        padding: 10px 0; /* Adjust padding for better aesthetics */
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        transition: background-color 0.3s ease, padding 0.3s ease;
+      }
 
-    /* Navbar Styling with Effects */
-    .navbar {
-      background-color: #1f0523;
-      color: #fff;
-      padding: 10px 0;
-      /* Adjust padding for better aesthetics */
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      transition: background-color 0.3s ease, padding 0.3s ease;
-    }
+      .navbar.scrolled {
+        background-color: #222;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        padding: 5px 0; /* Shrink padding on scroll */
+      }
 
-    .navbar.scrolled {
-      background-color: #222;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      padding: 5px 0;
-      /* Shrink padding on scroll */
-    }
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-    .navbar .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
+      .nav-links li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2em;
+        font-weight: 300;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
 
-    .nav-links li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.2em;
-      font-weight: 300;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
+      .nav-links li a:hover {
+        color: #ffa500;
+        transform: scale(1.1);
+      }
 
-    .nav-links li a:hover {
-      color: #ffa500;
-      transform: scale(1.1);
-    }
+      .search-bar {
+        display: flex;
+        gap: 10px;
+      }
 
-    .search-bar {
-      display: flex;
-      gap: 10px;
-    }
+      .search-bar input {
+        padding: 5px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
 
-    .search-bar input {
-      padding: 5px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+      .search-bar button {
+        padding: 5px 10px;
+        background-color: #6b1f1f;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        font-size: 1.2em;
+      }
 
-    .search-bar button {
-      padding: 5px 10px;
-      background-color: #6b1f1f;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-      font-size: 1.2em;
-    }
+      .search-bar button:hover {
+        background-color: #ffa500;
+      }
 
-    .search-bar button:hover {
-      background-color: #ffa500;
-    }
+      /* Main Content */
+      main {
+        flex: 1;
+        padding: 80px 15px 20px;
+      }
 
-    /* Main Content */
-    main {
-      flex: 1;
-      padding: 80px 15px 20px;
-    }
+      /* Product Cards */
+      .product-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
 
-    /* Product Cards */
-    .product-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+      .product-card {
+        width: 200px;
+        cursor: pointer;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        background-color: white;
+        transition: transform 0.2s; /* Add hover effect */
+      }
 
-    .product-card {
-      width: 200px;
-      cursor: pointer;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      background-color: white;
-      transition: transform 0.2s;
-      /* Add hover effect */
-    }
+      .product-card:hover {
+        transform: scale(1.05); /* Scale effect on hover */
+      }
 
-    .product-card:hover {
-      transform: scale(1.05);
-      /* Scale effect on hover */
-    }
+      .product-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
 
-    .product-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
+      .product-card h3,
+      .product-card h5,
+      .product-card p {
+        margin: 10px 0;
+      }
 
-    .product-card h3,
-    .product-card h5,
-    .product-card p {
-      margin: 10px 0;
-    }
+      .view-details-button {
+        background-color: #ffc107;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: background-color 0.3s; /* Smooth transition */
+      }
 
-    .view-details-button {
-      background-color: #ffc107;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      width: 100%;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      /* Smooth transition */
-    }
+      .view-details-button:hover {
+        background-color: #ffa500; /* Change on hover */
+      }
 
-    .view-details-button:hover {
-      background-color: #ffa500;
-      /* Change on hover */
-    }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+      }
 
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-    }
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px; /* ลดขนาด modal */
+        max-width: 90%; /* สำหรับหน้าจอเล็ก */
+        text-align: center;
+        position: relative;
+      }
+      .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+        color: #e53935;
+      }
+      .modal-image {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 0;
+      }
 
-    .modal-content {
-      background-color: #fff;
-      width: 90%;
-      max-width: 500px;
-      padding: 20px;
-      border-radius: 10px;
-      position: relative;
-      text-align: center;
-    }
+      .confirm-button {
+        background-color: #e53935;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 20px;
-      font-weight: bold;
-      color: #e53935;
-    }
+      .modal-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
 
-    .modal-image {
-      width: 100%;
-      height: auto;
-      margin-bottom: 15px;
-      border-radius: 10px;
-    }
+      .modal-price {
+        font-size: 1.2em;
+        color: #e53935;
+        margin: 10px 0;
+      }
 
-    .modal-title {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+      .modal-description {
+        color: #555;
+        margin: 10px 0;
+      }
 
-    .modal-price {
-      font-size: 1.2em;
-      color: #e53935;
-      margin: 10px 0;
-    }
+      .modal-actions {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+      }
 
-    .modal-description {
-      color: #555;
-      margin: 10px 0;
-    }
+      .modal-button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        font-weight: bold;
+      }
 
-    .modal-actions {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
+      .cart-button {
+        background-color: #ffc107;
+        color: #333;
+      }
 
-    .modal-button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      font-weight: bold;
-    }
+      .buy-button {
+        background-color: #e53935;
+        color: #fff;
+      }
 
-    .cart-button {
-      background-color: #ffc107;
-      color: #333;
-    }
+      .footer {
+        background-color: #1f0523;
+        color: #fff;
+        padding: 10px 15px; /* Adjust padding for better alignment */
+        text-align: left; /* Align text to the left */
+      }
 
-    .buy-button {
-      background-color: #e53935;
-      color: #fff;
-    }
+      .footer-content {
+        max-width: 1200px; /* Maintain max width */
+        margin: 0 auto; /* Center the footer on large screens */
+      }
 
-    .footer {
-      background-color: #1f0523;
-      color: #fff;
-      padding: 10px 15px;
-      /* Adjust padding for better alignment */
-      text-align: left;
-      /* Align text to the left */
-    }
+      .social-links {
+        display: flex; /* Use flexbox for horizontal alignment */
+        gap: 20px; /* Space between social links */
+      }
 
-    .footer-content {
-      max-width: 1200px;
-      /* Maintain max width */
-      margin: 0 auto;
-      /* Center the footer on large screens */
-    }
+      .social-icon a {
+        color: white; /* Change icon color */
+        text-decoration: none; /* Remove underline from links */
+      }
 
-    .social-links {
-      display: flex;
-      /* Use flexbox for horizontal alignment */
-      gap: 20px;
-      /* Space between social links */
-    }
+      .social-icon i {
+        margin-right: 5px; /* Space between icon and text */
+        font-size: 1.2em; /* Adjust size of icons */
+      }
 
-    .social-icon a {
-      color: white;
-      /* Change icon color */
-      text-decoration: none;
-      /* Remove underline from links */
-    }
+      .contact-info {
+        margin-top: 10px; /* Space above contact info */
+      }
 
-    .social-icon i {
-      margin-right: 5px;
-      /* Space between icon and text */
-      font-size: 1.2em;
-      /* Adjust size of icons */
-    }
+      .footer a {
+        color: #ffa500;
+        text-decoration: none;
+      }
 
-    .contact-info {
-      margin-top: 10px;
-      /* Space above contact info */
-    }
+      .footer a:hover {
+        text-decoration: underline;
+      }
 
-    .footer a {
-      color: #ffa500;
-      text-decoration: none;
-    }
+      .logo img {
+        height: 70px;
+        width: auto;
+      }
 
-    .footer a:hover {
-      text-decoration: underline;
-    }
+      .cart-btn {
+        background-color: #6b1f1f;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-left: 10px;
+        padding: 5px;
+        transition: background-color 0.3s ease;
+      }
 
-    .logo img {
-      height: 70px;
-      width: auto;
-    }
+      .cart-btn img {
+        width: 24px;
+        height: 24px;
+      }
 
-    .cart-btn {
-      background-color: #6b1f1f;
-      /* Same background color as before */
-      border: none;
-      color: white;
-      /* Change text color to white */
-      cursor: pointer;
-      border-radius: 4px;
-      padding: 10px;
-      /* Increase padding for better appearance */
-      font-size: 1em;
-      /* Adjust font size */
-      transition: background-color 0.3s ease;
-    }
+      .cart-btn:hover {
+        background-color: #ffa500;
+      }
+      h1 {
+        color: #fff;
+      }
 
-    .cart-btn img {
-      width: 24px;
-      height: 24px;
-    }
+      .notification {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        font-size: 16px;
+        z-index: 1000;
+        transition: opacity 0.3s ease;
+      }
 
-    .cart-btn:hover {
-      background-color: #ffa500;
-      /* Change background color on hover */
-    }
-  </style>
-</head>
+      .notification.success {
+        background-color: #4caf50; /* สีเขียวสำหรับข้อความสำเร็จ */
+      }
 
-<body>
-  <!-- Navbar -->
-  <nav class="navbar" id="navbar">
-    <div class="container">
-      <div class="logo">
-        <img src="https://img5.pic.in.th/file/secure-sv1/c5e73acb-e660-4ba8-a134-224cc9d6c269.jpeg" alt="Logo" />
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">หน้าหลัก</a></li>
-        <li><a href="workoutcourse.html">อุปกรณ์ออกกำลังกาย</a></li>
-        <li><a href="course.html">คอร์สเรียน</a></li>
-        <li><a href="foodsupplement.html">อาหารเสริม</a></li>
-        <li><a href="exercise.html">เครื่องออกกำลังกาย</a></li>
-      </ul>
-      <div class="search-bar">
-        <input type="text" placeholder="ค้นหา..." aria-label="Search Products" />
-        <button type="button">ค้นหา</button>
-        <button class="cart-btn" onclick="window.location.href='login.html'">
-          login
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <main>
-    <div class="container"></div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="social-links">
-        <div class="social-icon">
-          <a href="https://www.facebook.com/profile.php?id=61568082364112&mibextid=ZbWKwL">
-            <i class="fab fa-facebook"></i> Facebook
-          </a>
+      .notification.error {
+        background-color: #f44336; /* สีแดงสำหรับข้อความผิดพลาด */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <div class="logo">
+          <img
+            src="https://img5.pic.in.th/file/secure-sv1/c5e73acb-e660-4ba8-a134-224cc9d6c269.jpeg"
+            alt="Logo"
+          />
         </div>
-        <div class="social-icon">
-          <a href="https://www.instagram.com/fitjung_3.2?igsh=NGVudnkybGEyeWpt">
-            <i class="fab fa-instagram"></i> Instagram
-          </a>
+        <ul class="nav-links">
+          <li><a href="index.html">หน้าหลัก</a></li>
+          <li><a href="workoutcourse.html">อุปกรณ์ออกกำลังกาย</a></li>
+          <li><a href="course.html">คอร์สเรียน</a></li>
+          <li><a href="foodsupplement.html">อาหารเสริม</a></li>
+          <li><a href="exercise.html">เครื่องออกกำลังกาย</a></li>
+        </ul>
+        <div class="search-bar">
+          <button class="cart-btn" onclick="window.location.href='cart.html'">
+            Cart
+          </button>
+          <button class="cart-btn" onclick="window.location.href='login.html'">
+            Login
+          </button>
         </div>
       </div>
-      <div class="contact-info">
-        <p>ติดต่อเรา: <a href="tel:0210179553">02-1017-9553</a></p>
+    </nav>
+
+    <main>
+      <div class="container">
+        <br />
+        <h1>สินค้าแนะนำ</h1>
+        <div class="product-container">
+          <div class="product-card" onclick="openModal('product1')">
+            <img
+              src="https://img5.pic.in.th/file/secure-sv1/bad701e5-75da-4214-ac5b-24f4286aa3a8.jpeg"
+              alt="Product Image"
+              class="modal-image"
+            />
+            <h3>calcium</h3>
+            <h5>ราคา: 357 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product2')">
+            <img
+              src="https://img2.pic.in.th/pic/151cd59317e27e22f.jpeg"
+              alt="Product Image"
+            />
+            <h3>Smith Machine รุ่น SM50</h3>
+            <h5>ราคา: 24,700 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product3')">
+            <img
+              src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg"
+              alt="Product Image"
+            />
+            <h3>ดัมเบล 10kg</h3>
+            <h5>ราคา: 2,700 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product4')">
+            <img
+              src="https://img5.pic.in.th/file/secure-sv1/d8ba7de5-2bf6-406b-9dfe-defe9c6a7f66.jpeg"
+              alt="Product Image"
+            />
+            <h3>Soy protein</h3>
+            <h5>ราคา: 689 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product5')">
+            <img
+              src="https://img5.pic.in.th/file/secure-sv1/5225d66332d5cb038.jpeg"
+              alt="Product Image"
+            />
+            <h3>CELLUCOR C4 ORIGINAL</h3>
+            <h5>ราคา: 1,390 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product6')">
+            <img
+              src="https://img5.pic.in.th/file/secure-sv1/47eeb8db389d5243d.webp"
+              alt="Product Image"
+            />
+            <h3>4VITAXTRONG REAL WHEY PROTEIN</h3>
+            <h5>ราคา: 2,700 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+          <div class="product-card" onclick="openModal('product7')">
+            <img
+              src="https://img5.pic.in.th/file/secure-sv1/4683dd7ec8968ec73.jpeg"
+              alt="Product Image"
+            />
+            <h3>จักรยานออกกำลังกาย เอนปั่น รุ่น R150</h3>
+            <h5>ราคา: 12,000 บาท</h5>
+            <p>🚚 จัดส่งภายใน1-3วัน</p>
+            <button class="view-details-button">ดูรายละเอียด</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </footer>
 
+      <!-- โมดอลหลักที่แสดงสินค้า -->
+      <div class="modal" id="productModal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeModal()">&times;</span>
+          <img class="modal-image" id="modalImage" src="" alt="Product Image" />
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <h3 class="modal-price" id="modalPrice"></h3>
+          <p class="modal-description" id="modalDescription"></p>
+          <div class="modal-actions">
+            <button class="modal-button cart-button" onclick="addToCart()">
+              เพิ่มไปยังตะกร้า
+            </button>
+            <button class="modal-button buy-button" onclick="buyNow()">
+              ซื้อทันที
+            </button>
+          </div>
+        </div>
+      </div>
 
-</body>
+      <!-- New Buy Now Modal -->
+      <div class="modal" id="buyNowModal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeBuyNowModal()">&times;</span>
+          <h2>รายละเอียดการชำระเงิน</h2>
+          <img
+            src="https://img2.pic.in.th/pic/e6a1336c-4e67-43f9-816f-f821ab5881fa.jpeg"
+            alt="Payment Details"
+            class="modal-image"
+          />
+        </div>
+      </div>
+    </main>
 
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="social-links">
+          <div class="social-icon">
+            <a
+              href="https://www.facebook.com/profile.php?id=61568082364112&mibextid=ZbWKwL"
+            >
+              <i class="fab fa-facebook"></i> Facebook
+            </a>
+          </div>
+          <div class="social-icon">
+            <a
+              href="https://www.instagram.com/fitjung_3.2?igsh=NGVudnkybGEyeWpt"
+            >
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+          </div>
+        </div>
+        <div class="contact-info">
+          <p>ติดต่อเรา: <a href="tel:0210179553">02-1017-9553</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ตัวแปรที่ใช้เก็บข้อมูลสินค้าปัจจุบัน
+      let currentProduct = {};
+
+      // Modal functions
+      function openModal(product) {
+        const modal = document.getElementById("productModal");
+        const titleElement = document.getElementById("modalTitle");
+        const priceElement = document.getElementById("modalPrice");
+        const descriptionElement = document.getElementById("modalDescription");
+        const imageElement = document.getElementById("modalImage");
+
+        // Sample data, replace with actual product data
+        const products = {
+          product1: {
+            title: "calcium",
+            price: "฿357",
+            description:
+              "NIKOCAL นิโคแคล อาหารเสริม แคลเซียม เพิ่มความสูง บำรุงกระดูกข้อต่อ ลดปวด เข่า กระดูก",
+            image:
+              "https://img5.pic.in.th/file/secure-sv1/bad701e5-75da-4214-ac5b-24f4286aa3a8.jpeg",
+          },
+          product2: {
+            title: "Smith Machine รุ่น SM50",
+            price: "฿24,700",
+            description: "ใช้สร้างกล้ามได้ ทุกส่วน มี 3 ระบบใน 1 เครื่อง",
+            image: "https://img2.pic.in.th/pic/151cd59317e27e22f.jpeg",
+          },
+          product3: {
+            title: "ดัมเบล 10kg",
+            price: "฿2,700",
+            description: "ใช้สร้างกล้ามได้ ทุกส่วน มี 3 ระบบใน 1 เครื่อง",
+            image:
+              "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+          },
+          product4: {
+            title: "Soy protein",
+            price: "฿689 ",
+            description:
+              "3FITWHEY 100% ORGANIC SOY PROTEIN ISOLATE ขนาด 5 lb โปรตีน 30 กรัม น้ำตาล 0 กรัม",
+            image:
+              "https://img5.pic.in.th/file/secure-sv1/d8ba7de5-2bf6-406b-9dfe-defe9c6a7f66.jpeg",
+          },
+          product5: {
+            title: "CELLUCOR C4 ORIGINAL",
+            price: "฿1,390",
+            description: "30 Serving เพิ่มแรง เพิ่มพลัง ก่อนออกกำลังกาย",
+            image:
+              "https://img5.pic.in.th/file/secure-sv1/5225d66332d5cb038.jpeg",
+          },
+          product6: {
+            title: "4VITAXTRONG REAL WHEY PROTEIN",
+            price: "฿2,700",
+            description:
+              "เป็นเวย์ที่มีส่วนผสมของ Whey protein Concentrate เป็นหลัก",
+            image:
+              "https://img5.pic.in.th/file/secure-sv1/47eeb8db389d5243d.webp",
+          },
+          product7: {
+            title: "จักรยานออกกำลังกาย เอนปั่น รุ่น R150",
+            price: "฿12,000",
+            description: "เครื่องออกกำลังกาย แบรนด์ IRONTEC",
+            image:
+              "https://img5.pic.in.th/file/secure-sv1/4683dd7ec8968ec73.jpeg",
+          },
+        };
+
+        currentProduct = products[product];
+
+        titleElement.innerText = currentProduct.title;
+        priceElement.innerText = currentProduct.price;
+        descriptionElement.innerText = currentProduct.description;
+        imageElement.src = currentProduct.image;
+
+        modal.style.display = "flex";
+      }
+
+      // ฟังก์ชันสำหรับปิด Modal
+      function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+      }
+
+      // ฟังก์ชันสำหรับเพิ่มสินค้าไปยังตะกร้า
+      function addToCart() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // ตรวจสอบให้แน่ใจว่า currentProduct มีค่าต่าง ๆ ครบถ้วน
+        if (
+          currentProduct &&
+          currentProduct.image &&
+          currentProduct.title &&
+          currentProduct.price
+        ) {
+          cart.push(currentProduct);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          showNotification("เพิ่มสินค้าลงในตะกร้าเรียบร้อยแล้ว!"); // ใช้การแจ้งเตือนแบบใหม่
+          closeModal();
+        } else {
+          showNotification("ข้อมูลสินค้าผิดพลาด!", "error"); // แสดงการแจ้งเตือนข้อผิดพลาด
+        }
+      }
+
+      // ฟังก์ชันสำหรับแสดงการแจ้งเตือน
+      function showNotification(message, type = "success") {
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.innerText = message;
+        document.body.appendChild(notification);
+
+        // ให้การแจ้งเตือนแสดงผลสักครู่แล้วหายไป
+        setTimeout(() => {
+          notification.remove();
+        }, 3000); // แสดงการแจ้งเตือนเป็นเวลา 3 วินาที
+      }
+
+      // Function to show buyNowModal
+      function buyNow() {
+        document.getElementById("buyNowModal").style.display = "block";
+      }
+
+      // Function to close buyNowModal
+      function closeBuyNowModal() {
+        document.getElementById("buyNowModal").style.display = "none";
+      }
+    </script>
+  </body>
 </html>
