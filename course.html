@@ -308,6 +308,27 @@
       h1 {
         color: #fff;
       }
+
+      .notification {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        font-size: 16px;
+        z-index: 1000;
+        transition: opacity 0.3s ease;
+      }
+
+      .notification.success {
+        background-color: #4caf50; /* สีเขียวสำหรับข้อความสำเร็จ */
+      }
+
+      .notification.error {
+        background-color: #f44336; /* สีแดงสำหรับข้อความผิดพลาด */
+      }
     </style>
   </head>
   <body>
@@ -405,7 +426,6 @@
             alt="Payment Details"
             class="modal-image"
           />
-          
         </div>
       </div>
     </main>
@@ -490,7 +510,7 @@
       function addToCart() {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // ตรวจสอบให้แน่ใจว่า currentProduct มีค่าต่าง ๆ
+        // ตรวจสอบให้แน่ใจว่า currentProduct มีค่าต่าง ๆ ครบถ้วน
         if (
           currentProduct &&
           currentProduct.image &&
@@ -499,11 +519,24 @@
         ) {
           cart.push(currentProduct);
           localStorage.setItem("cart", JSON.stringify(cart));
-          alert("เพิ่มสินค้าลงในตะกร้าเรียบร้อยแล้ว!");
+          showNotification("เพิ่มสินค้าลงในตะกร้าเรียบร้อยแล้ว!"); // ใช้การแจ้งเตือนแบบใหม่
           closeModal();
         } else {
-          alert("ข้อมูลสินค้าผิดพลาด!");
+          showNotification("ข้อมูลสินค้าผิดพลาด!", "error"); // แสดงการแจ้งเตือนข้อผิดพลาด
         }
+      }
+
+      // ฟังก์ชันสำหรับแสดงการแจ้งเตือน
+      function showNotification(message, type = "success") {
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.innerText = message;
+        document.body.appendChild(notification);
+
+        // ให้การแจ้งเตือนแสดงผลสักครู่แล้วหายไป
+        setTimeout(() => {
+          notification.remove();
+        }, 3000); // แสดงการแจ้งเตือนเป็นเวลา 3 วินาที
       }
 
       // Function to show buyNowModal
