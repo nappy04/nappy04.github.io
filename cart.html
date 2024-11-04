@@ -10,6 +10,7 @@
         padding: 20px;
         background-color: #1f0523; /* เปลี่ยนสีพื้นหลังของ body */
         color: rgb(0, 0, 0); /* เปลี่ยนสีข้อความให้มองเห็นได้ */
+        padding: 100px;
       }
       .container {
         max-width: 800px;
@@ -107,7 +108,7 @@
       .modal-image {
         display: block; /* Make the image a block */
         margin: 0 auto; /* Center the image */
-        max-width: 80%; /* Max width of the image */
+        max-width: 50%; /* Max width of the image */
         height: auto; /* Maintain aspect ratio */
       }
 
@@ -122,6 +123,26 @@
         color: black;
         text-decoration: none;
         cursor: pointer;
+      }
+      .notification {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        font-size: 16px;
+        z-index: 1000;
+        transition: opacity 0.3s ease;
+      }
+
+      .notification.success {
+        background-color: #4caf50; /* สีเขียวสำหรับข้อความสำเร็จ */
+      }
+
+      .notification.error {
+        background-color: #f44336; /* สีแดงสำหรับข้อความผิดพลาด */
       }
     </style>
   </head>
@@ -218,9 +239,23 @@
 
       // ฟังก์ชันยืนยันการชำระเงิน
       function confirmPayment() {
-        // เพิ่มโค้ดสำหรับการชำระเงินที่นี่
-        alert("ชำระเงินสำเร็จ!"); // ตัวอย่างการแจ้งเตือนเมื่อชำระเงินสำเร็จ
+        // เพิ่มโค้ดสำหรับการชำระเงินที่นี่ (เช่น ตรวจสอบข้อมูลการชำระเงิน)
+
+        showNotification("ชำระเงินสำเร็จ!", "success"); // แสดงการแจ้งเตือนสำเร็จ
         closeModal(); // ปิด modal
+      }
+
+      // ฟังก์ชันสำหรับแสดงการแจ้งเตือน
+      function showNotification(message, type = "success") {
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.innerText = message;
+        document.body.appendChild(notification);
+
+        // ให้การแจ้งเตือนแสดงผลสักครู่แล้วหายไป
+        setTimeout(() => {
+          notification.remove();
+        }, 3000); // แสดงการแจ้งเตือนเป็นเวลา 3 วินาที
       }
 
       // เรียกใช้ฟังก์ชันโหลดข้อมูลสินค้าในตะกร้า
