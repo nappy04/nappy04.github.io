@@ -186,7 +186,7 @@
         const cartContainer = document.getElementById("cartItems");
         const totalPriceElement = document.getElementById("totalPrice");
         let total = 0; // ตัวแปรสำหรับเก็บยอดเงินรวม
-
+    
         if (cartItems.length === 0) {
           cartContainer.innerHTML = "<p>ยังไม่มีสินค้าในตะกร้า</p>";
           totalPriceElement.textContent = "ยอดเงินรวม: 0 บาท";
@@ -196,29 +196,30 @@
               if (item && item.image && item.title && item.price) {
                 const price = parseFloat(item.price.replace(/[^0-9.-]+/g, ""));
                 total += isNaN(price) ? 0 : price;
-
+    
                 return `
-          <div class="cart-item">
-            <img src="${item.image}" alt="${item.title}">
-            <div>
-              <h3>${item.title}</h3>
-              <p class="price">${item.price} บาท</p>
-            </div>
-            <button class="remove-button" onclick="removeFromCart(${index})">ลบ</button>
-          </div>
-        `;
+                  <div class="cart-item">
+                    <img src="${item.image}" alt="${item.title}">
+                    <div>
+                      <h3>${item.title}</h3>
+                      <p class="price">${item.price} บาท</p>
+                    </div>
+                    <button class="remove-button" onclick="removeFromCart(${index})">ลบ</button>
+                  </div>
+                `;
               } else {
                 return ""; // ส่งคืนค่าว่างหากข้อมูลไม่ถูกต้อง
               }
             })
             .join("");
-
-          totalPriceElement.textContent = `ยอดเงินรวม: ${total.toFixed(2)} บาท`;
-          document.getElementById("modalTotalPrice").textContent =
-            total.toFixed(2); // อัปเดตยอดเงินใน modal
+    
+          // Format the total price with commas
+          const formattedTotal = total.toLocaleString();
+          totalPriceElement.textContent = `ยอดเงินรวม: ${formattedTotal} บาท`;
+          document.getElementById("modalTotalPrice").textContent = formattedTotal; // อัปเดตยอดเงินใน modal
         }
       }
-
+    
       // ฟังก์ชันลบสินค้าจากตะกร้า
       function removeFromCart(index) {
         let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -226,40 +227,46 @@
         localStorage.setItem("cart", JSON.stringify(cartItems)); // อัปเดต Local Storage
         loadCart(); // โหลดตะกร้าใหม่
       }
-
+    
       // ฟังก์ชันแสดง modal
       function showModal() {
         document.getElementById("myModal").style.display = "block"; // แสดง modal
       }
-
+    
       // ฟังก์ชันปิด modal
       function closeModal() {
         document.getElementById("myModal").style.display = "none"; // ซ่อน modal
       }
-
+    
       // ฟังก์ชันยืนยันการชำระเงิน
       function confirmPayment() {
         // เพิ่มโค้ดสำหรับการชำระเงินที่นี่ (เช่น ตรวจสอบข้อมูลการชำระเงิน)
-
+    
         showNotification("ชำระเงินสำเร็จ!", "success"); // แสดงการแจ้งเตือนสำเร็จ
         closeModal(); // ปิด modal
+    
+        // ล้างสินค้าในตะกร้า
+        localStorage.removeItem("cart"); // ลบข้อมูลสินค้าในตะกร้าออกจาก Local Storage
+        loadCart(); // โหลดตะกร้าใหม่เพื่อให้แสดงว่าไม่มีสินค้าแล้ว
       }
-
+    
       // ฟังก์ชันสำหรับแสดงการแจ้งเตือน
       function showNotification(message, type = "success") {
         const notification = document.createElement("div");
         notification.className = `notification ${type}`;
         notification.innerText = message;
         document.body.appendChild(notification);
-
+    
         // ให้การแจ้งเตือนแสดงผลสักครู่แล้วหายไป
         setTimeout(() => {
           notification.remove();
         }, 3000); // แสดงการแจ้งเตือนเป็นเวลา 3 วินาที
       }
-
+    
       // เรียกใช้ฟังก์ชันโหลดข้อมูลสินค้าในตะกร้า
       loadCart();
     </script>
+    
+    
   </body>
 </html>
