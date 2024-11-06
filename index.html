@@ -709,6 +709,17 @@
         quantityInput.value = currentValue - 1;
       }
     }
+    // ฟังก์ชันเปิด Modal
+  function buyNow() {
+    const buyNowModal = document.getElementById("buyNowModal");
+    buyNowModal.style.display = "block"; // ทำให้ modal ปรากฏขึ้น
+  }
+
+  // ฟังก์ชันปิด Modal
+  function closeBuyNowModal() {
+    const buyNowModal = document.getElementById("buyNowModal");
+    buyNowModal.style.display = "none"; // ซ่อน modal
+  }
   </script>
 </body>
 
