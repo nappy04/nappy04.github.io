@@ -7,8 +7,711 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <style>
+    /><!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fitjung</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #360944;
+      margin: 0;
+      padding: 0;
+      /* Remove padding to use flexbox */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* Full height layout */
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Navbar Styling with Effects */
+    .navbar {
+      background-color: #1f0523;
+      color: #fff;
+      padding: 10px 0;
+      /* Adjust padding for better aesthetics */
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transition: background-color 0.3s ease, padding 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background-color: #222;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      padding: 5px 0;
+      /* Shrink padding on scroll */
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: 300;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #ffa500;
+      transform: scale(1.1);
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar input {
+      padding: 5px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .search-bar button {
+      padding: 5px 10px;
+      background-color: #6b1f1f;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      font-size: 1.2em;
+    }
+
+    .search-bar button:hover {
+      background-color: #ffa500;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 80px 15px 20px;
+    }
+
+    /* Product Cards */
+    .product-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .product-card {
+      width: 200px;
+      cursor: pointer;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      background-color: white;
+      transition: transform 0.2s;
+      /* Add hover effect */
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+      /* Scale effect on hover */
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .product-card h3,
+    .product-card h5,
+    .product-card p {
+      margin: 10px 0;
+    }
+
+    .view-details-button {
+      background-color: #ffc107;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      /* Smooth transition */
+    }
+
+    .view-details-button:hover {
+      background-color: #ffa500;
+      /* Change on hover */
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      /* ลดขนาด modal */
+      max-width: 90%;
+      /* สำหรับหน้าจอเล็ก */
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e53935;
+    }
+
+    .modal-image {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+    }
+
+    .confirm-button {
+      background-color: #e53935;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .modal-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .modal-price {
+      font-size: 1.2em;
+      color: #e53935;
+      margin: 10px 0;
+    }
+
+    .modal-description {
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .modal-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cart-button {
+      background-color: #ffc107;
+      color: #333;
+    }
+
+    .buy-button {
+      background-color: #e53935;
+      color: #fff;
+    }
+
+    .footer {
+      background-color: #1f0523;
+      color: #fff;
+      padding: 10px 15px;
+      /* Adjust padding for better alignment */
+      text-align: left;
+      /* Align text to the left */
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      /* Maintain max width */
+      margin: 0 auto;
+      /* Center the footer on large screens */
+    }
+
+    .social-links {
+      display: flex;
+      /* Use flexbox for horizontal alignment */
+      gap: 20px;
+      /* Space between social links */
+    }
+
+    .social-icon a {
+      color: white;
+      /* Change icon color */
+      text-decoration: none;
+      /* Remove underline from links */
+    }
+
+    .social-icon i {
+      margin-right: 5px;
+      /* Space between icon and text */
+      font-size: 1.2em;
+      /* Adjust size of icons */
+    }
+
+    .contact-info {
+      margin-top: 10px;
+      /* Space above contact info */
+    }
+
+    .footer a {
+      color: #ffa500;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .logo img {
+      height: 70px;
+      width: auto;
+    }
+
+    .cart-btn {
+      background-color: #6b1f1f;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 10px;
+      padding: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart-btn img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .cart-btn:hover {
+      background-color: #ffa500;
+    }
+
+    h1 {
+      color: #fff;
+    }
+
+    .notification {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 4px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
+    }
+
+    .notification.success {
+      background-color: #4caf50;
+      /* Green for success */
+    }
+
+    .notification.error {
+      background-color: #f44336;
+      /* Red for error */
+    }
+
+
+    .modal-quantity {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .quantity-btn {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      width: 30px;
+      height: 30px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .quantity-input {
+      width: 50px;
+      text-align: center;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      padding: 5px;
+    }
+
+    .cart-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="logo">
+        <img src="https://img5.pic.in.th/file/secure-sv1/c5e73acb-e660-4ba8-a134-224cc9d6c269.jpeg" alt="Logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">หน้าหลัก</a></li>
+        <li><a href="workoutcourse.html">อุปกรณ์ออกกำลังกาย</a></li>
+        <li><a href="course.html">คอร์สเรียน</a></li>
+        <li><a href="foodsupplement.html">อาหารเสริม</a></li>
+        <li><a href="exercise.html">เครื่องออกกำลังกาย</a></li>
+      </ul>
+      <div class="search-bar">
+        <button class="cart-btn" onclick="window.location.href='cart.html'">
+          <i class="fa-solid fa-cart-shopping"></i> Cart
+          <span class="cart-count" id="cartCount">0</span> <!-- ตัวเลขแสดงจำนวนสินค้า -->
+        </button>
+      </div>
+    </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <h1>อุปกรณ์ออกกำลังกาย</h1>
+      <div class="product-container">
+        <div class="product-card" onclick="openModal('product1')">
+          <img src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg" alt="Product Image"
+            class="modal-image" />
+          <h3>ดัมเบล 10kg</h3>
+          <h5>ราคา: 2,700 บาท</h5>
+          <p>🚚 จัดส่งภายใน1-3วัน</p>
+          <button class="view-details-button">ดูรายละเอียด</button>
+        </div>
+        <div class="product-card" onclick="openModal('product2')">
+          <img src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg" alt="Product Image" />
+          <h3>เสื่อรองเล่นโยคะ</h3>
+          <h5>ราคา: 9,500 บาท</h5>
+          <p>🚚 จัดส่งภายใน1-3วัน</p>
+          <button class="view-details-button">ดูรายละเอียด</button>
+        </div>
+        <div class="product-card" onclick="openModal('product3')">
+          <img src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg" alt="Product Image" />
+          <h3>ลูกกลิ้งบริหารหน้าท้อง</h3>
+          <h5>ราคา: 28,900 บาท</h5>
+          <p>🚚 จัดส่งภายใน1-3วัน</p>
+          <button class="view-details-button">ดูรายละเอียด</button>
+        </div>
+        <div class="product-card" onclick="openModal('product4')">
+          <img src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg" alt="Product Image" />
+          <h3>เชือกกระโดดออกกำลังกาย</h3>
+          <h5>ราคา: 12,000 บาท</h5>
+          <p>🚚 จัดส่งภายใน1-3วัน</p>
+          <button class="view-details-button">ดูรายละเอียด</button>
+        </div>
+        <div class="product-card" onclick="openModal('product5')">
+          <img src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg" alt="Product Image" />
+          <h3>บาร์โหนดึงข้อ</h3>
+          <h5>ราคา: 50,000 บาท</h5>
+          <p>🚚 จัดส่งภายใน1-3วัน</p>
+          <button class="view-details-button">ดูรายละเอียด</button>
+        </div>
+        <div class="product-card" onclick="openModal('product6')">
+          <img src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg" alt="Product Image" />
+          <h3>บอร์ดวิดพื้น</h3>
+          <h5>ราคา: 50,000 บาท</h5>
+          <p>🚚 จัดส่งภายใน1-3วัน</p>
+          <button class="view-details-button">ดูรายละเอียด</button>
+        </div>
+        <div class="product-card" onclick="openModal('product7')">
+          <img src="https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg" alt="Product Image" />
+          <h3>ยางออกกำลังกาย</h3>
+          <h5>ราคา: 50,000 บาท</h5>
+          <p>🚚 จัดส่งภายใน1-3วัน</p>
+          <button class="view-details-button">ดูรายละเอียด</button>
+        </div>
+      </div>
+    </div>
+    <div id="notification" class="notification" style="display: none;"></div>
+    <!-- Main Modal for displaying product -->
+    <div class="modal" id="productModal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-image" id="modalImage" src="" alt="Product Image" />
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <h3 class="modal-price" id="modalPrice"></h3>
+        <p class="modal-description" id="modalDescription"></p>
+
+        <!-- Quantity Selector -->
+        <div class="modal-quantity">
+          <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+          <input type="number" id="productQuantity" class="quantity-input" value="1" min="1" readonly />
+          <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="modal-actions">
+          <button class="modal-button cart-button" onclick="addToCart()">
+            เพิ่มไปยังตะกร้า
+          </button>
+          <button class="modal-button buy-button" onclick="buyNow()">
+            ซื้อทันที
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- New Buy Now Modal -->
+    <div class="modal" id="buyNowModal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeBuyNowModal()">&times;</span>
+        <h2>รายละเอียดการชำระเงิน</h2>
+        <img src="https://img2.pic.in.th/pic/e6a1336c-4e67-43f9-816f-f821ab5881fa.jpeg" alt="Payment Details"
+          class="modal-image" />
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="social-links">
+        <div class="social-icon">
+          <a href="https://www.facebook.com/profile.php?id=61568082364112&mibextid=ZbWKwL">
+            <i class="fab fa-facebook"></i> Facebook
+          </a>
+        </div>
+        <div class="social-icon">
+          <a href="https://www.instagram.com/fitjung_3.2?igsh=NGVudnkybGEyeWpt">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+        </div>
+      </div>
+      <div class="contact-info">
+        <p>ติดต่อเรา: <a href="tel:0210179553">02-1017-9553</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ตัวแปรที่ใช้เก็บข้อมูลสินค้าปัจจุบัน
+    let currentProduct = {};
+
+    // Modal functions
+    function openModal(product) {
+      const modal = document.getElementById("productModal");
+      const titleElement = document.getElementById("modalTitle");
+      const priceElement = document.getElementById("modalPrice");
+      const descriptionElement = document.getElementById("modalDescription");
+      const imageElement = document.getElementById("modalImage");
+      const quantityInput = document.getElementById("productQuantity");
+
+      // Sample data, replace with actual product data
+      const products = {
+        product1: {
+          title: "ดัมเบล 10kg",
+          price: "฿24,700",
+          description: "ใช้สร้างกล้ามได้ ทุกส่วน มี 3 ระบบใน 1 เครื่อง",
+          image:
+            "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+        },
+        product2: {
+          title: "เสื่อรองเล่นโยคะ",
+          price: "฿9,500",
+          description: "โฮมยิมที่ครบครันสำหรับการออกกำลังกายทุกส่วน",
+          image:
+            "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+        },
+        product3: {
+          title: "ลูกกลิ้งบริหารหน้าท้อง",
+          price: "฿28,900",
+          description: "5.0AT 2.5 แรงม้า New Arrival!!",
+          image:
+            "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+        },
+        product4: {
+          title: "เชือกกระโดดออกกำลังกาย",
+          price: "฿12,000",
+          description: "เครื่องออกกำลังกาย แบรนด์ IRONTEC",
+          image:
+            "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+        },
+        product5: {
+          title: "บาร์โหนดึงข้อ",
+          price: "฿50,000",
+          description:
+            "เครื่องบริการกล้ามเนื้อ เครื่องออกกำลังกาย โฮมยิม Homegym - Homefittools",
+          image:
+            "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+        },
+        product6: {
+          title: "บอร์ดวิดพื้น",
+          price: "฿50,000",
+          description:
+            "เครื่องบริการกล้ามเนื้อ เครื่องออกกำลังกาย โฮมยิม Homegym - Homefittools",
+          image:
+            "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+        },
+        product7: {
+          title: "ยางออกกำลังกาย",
+          price: "฿50,000",
+          description:
+            "เครื่องบริการกล้ามเนื้อ เครื่องออกกำลังกาย โฮมยิม Homegym - Homefittools",
+          image:
+            "https://i.pinimg.com/564x/4f/24/d8/4f24d8197dd5822ac01184e706b33b1d.jpg",
+        },
+      };
+
+      currentProduct = products[product];
+
+      titleElement.innerText = currentProduct.title;
+      priceElement.innerText = currentProduct.price;
+      descriptionElement.innerText = currentProduct.description;
+      imageElement.src = currentProduct.image;
+
+
+      quantityInput.value = 1;
+      modal.style.display = "flex";
+    }
+    // ฟังก์ชันสำหรับปิด Modal
+    function closeModal() {
+      document.getElementById("productModal").style.display = "none";
+    }
+
+    // ฟังก์ชันเพื่อโหลดจำนวนสินค้าจาก localStorage
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cartCount").textContent = cart.length;
+    }
+
+    // เรียกใช้ฟังก์ชันทุกครั้งที่โหลดหน้าเว็บ
+    window.onload = updateCartCount;
+
+    // ฟังก์ชันเพิ่มสินค้าในตะกร้า
+    function addToCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // ดึงค่าจำนวนสินค้าจาก input
+      const quantity = parseInt(document.getElementById("productQuantity").value, 10) || 1;
+
+      // ตรวจสอบค่าของ currentProduct
+      console.log(currentProduct); // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลใน console
+
+      // ตรวจสอบข้อมูลของสินค้าว่ามีครบถ้วนหรือไม่
+      if (currentProduct && currentProduct.image && currentProduct.title && currentProduct.price) {
+
+        // เพิ่มสินค้าหลายชิ้นตามจำนวนที่เลือก
+        for (let i = 0; i < quantity; i++) {
+          cart.push(currentProduct);
+        }
+
+        // บันทึกตะกร้าใน localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // ปิด modal
+        closeModal();
+
+        // อัปเดตจำนวนสินค้าในตะกร้า
+        updateCartCount();
+
+        // แสดงการแจ้งเตือนเมื่อเพิ่มสินค้า
+        showNotification(`เพิ่มสินค้าลงในตะกร้าเรียบร้อยแล้ว! จำนวน ${quantity} ชิ้น`, "success");
+      } else {
+        console.error("ข้อมูลสินค้าผิดพลาด:", currentProduct); // แสดงข้อมูลใน console หากเกิดปัญหา
+        alert("ข้อมูลสินค้าผิดพลาด!");
+
+        // แสดงการแจ้งเตือนหากข้อมูลสินค้าผิดพลาด
+        showNotification("ข้อมูลสินค้าผิดพลาด!", "error");
+      }
+    }
+
+    // ฟังก์ชันแสดงการแจ้งเตือน
+    function showNotification(message, type) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.className = `notification ${type}`;
+      notification.style.display = 'block';
+
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    // เพิ่มฟังก์ชันเพิ่มและลดจำนวนสินค้า
+    function increaseQuantity() {
+      const quantityInput = document.getElementById("productQuantity");
+      let currentValue = parseInt(quantityInput.value, 10);
+      quantityInput.value = currentValue + 1;
+    }
+
+    function decreaseQuantity() {
+      const quantityInput = document.getElementById("productQuantity");
+      let currentValue = parseInt(quantityInput.value, 10);
+      if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
+    }
+  </script>
+</body>
+
+</html>
       body {
         font-family: Arial, sans-serif;
         background-color: #360944;
