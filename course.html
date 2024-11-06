@@ -425,28 +425,31 @@
     </div>
     </div>
   </nav>
-  
+
   <main>
     <div class="container">
       <h1>คอร์สเรียน</h1>
       <div class="product-container">
         <div class="product-card" onclick="openModal('product1')">
-          <img src="https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif" alt="Product Image"
+          <img src="https://img5.pic.in.th/file/secure-sv1/9ecfa7b1-fd98-4845-bf39-354ce882fe41.jpeg" alt="Product Image"
             class="modal-image" />
           <h3>คอร์สออกกำลังกาย แบบไม่มีอุปกรณ์</h3>
-          <h5>ราคา: 500 บาท</h5>
+          <h5>ราคา: 500 บาท</h5><br>
+          <br><br>
           <button class="view-details-button">ดูรายละเอียด</button>
         </div>
         <div class="product-card" onclick="openModal('product2')">
-          <img src="https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif" alt="Product Image" />
+          <img src="https://img5.pic.in.th/file/secure-sv1/44a70528-e7ab-4c11-8aa4-4b96bf7d93f1.jpeg" alt="Product Image" />
           <h3>คอร์สออกกำลังกายกายแบบมีอุปกรณ์</h3>
-          <h5>ราคา: 500 บาท</h5>
+          <h5>ราคา: 500 บาท</h5><br>
+          <br><br><br>
           <button class="view-details-button">ดูรายละเอียด</button>
         </div>
         <div class="product-card" onclick="openModal('product3')">
-          <img src="https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif" alt="Product Image" />
+          <img src="https://img5.pic.in.th/file/secure-sv1/6048dad1-e869-4e5e-9d1f-477c05476a17.jpeg" alt="Product Image" />
           <h3>คอร์สออกกำลังกายดัมเบล</h3>
-          <h5>ราคา: 500 บาท</h5>
+          <h5>ราคา: 500 บาท</h5><br>
+          <br><br><br>
           <button class="view-details-button">ดูรายละเอียด</button>
         </div>
       </div>
@@ -498,7 +501,7 @@
     <div class="footer-content">
       <div class="social-links">
         <div class="social-icon">
-          <a href="https://www.facebook.com/profile.php?id=61568082364112&mibextid=ZbWKwL">
+          <a href="https://www.facebook.com/profile.php?id=61568082364112&mibextid=LQQJ4d">
             <i class="fab fa-facebook"></i> Facebook
           </a>
         </div>
@@ -534,21 +537,21 @@
           price: "฿500",
           description: "5 วัน",
           image:
-            "https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif",
+            "https://img5.pic.in.th/file/secure-sv1/9ecfa7b1-fd98-4845-bf39-354ce882fe41.jpeg",
         },
         product2: {
           title: "คอร์สออกกำลังกายกายแบบมีอุปกรณ์",
           price: "฿500",
           description: "5 วัน",
           image:
-            "https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif",
+            "https://img5.pic.in.th/file/secure-sv1/44a70528-e7ab-4c11-8aa4-4b96bf7d93f1.jpeg",
         },
         product3: {
           title: "คอร์สออกกำลังกายดัมเบล",
           price: "฿500",
           description: "5 วัน",
           image:
-            "https://i.pinimg.com/originals/12/e2/85/12e2851deeb35e176e7b1a0ffb4fed33.gif",
+            "https://img5.pic.in.th/file/secure-sv1/6048dad1-e869-4e5e-9d1f-477c05476a17.jpeg",
         },
       };
 
@@ -644,19 +647,19 @@
       }
     }
     // ฟังก์ชันเปิด Modal
-  function buyNow() {
-    const buyNowModal = document.getElementById("buyNowModal");
-    buyNowModal.style.display = "block"; // ทำให้ modal ปรากฏขึ้น
-  }
+    function buyNow() {
+      const buyNowModal = document.getElementById("buyNowModal");
+      buyNowModal.style.display = "block"; // ทำให้ modal ปรากฏขึ้น
+    }
 
-  // ฟังก์ชันปิด Modal
-  function closeBuyNowModal() {
-    const buyNowModal = document.getElementById("buyNowModal");
-    buyNowModal.style.display = "none"; // ซ่อน modal
-  }
-</script>
+    // ฟังก์ชันปิด Modal
+    function closeBuyNowModal() {
+      const buyNowModal = document.getElementById("buyNowModal");
+      buyNowModal.style.display = "none"; // ซ่อน modal
+    }
+  </script>
 
-  
+
 </body>
 
 </html>
