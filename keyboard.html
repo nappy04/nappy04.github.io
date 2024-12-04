@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>keyboard Collection</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+      height: 100%;
+      /* ทำให้ body ครอบคลุมทั้งหน้าจอ */
+      margin: 0;
+      /* ลบ margin เริ่มต้น */
+      padding: 0;
+      /* ลบ padding เริ่มต้น */
+    }
+
+    body {
+      background-image: url('https://img5.pic.in.th/file/secure-sv1/e1cc84c0-c270-46ae-9a61-ef1efdf99158.jpeg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+
+
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.1);
+    }
+
+    .product-info {
+      padding: 15px;
+    }
+
+    .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .product-description {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    .product-price {
+      font-size: 16px;
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    .btn-buy {
+      width: 100%;
+      background-color: #007bff;
+      border: none;
+      padding: 10px;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-buy:hover {
+      background-color: #0056b3;
+    }
+
+    /* Modal Styling */
+
+
+    .modal-footer {
+      justify-content: space-between;
+    }
+
+    /* Header Styling */
+    .page-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+      font-size: 36px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .page-header p {
+      font-size: 18px;
+      color: #555;
+    }
+
+    /* Container for buttons */
+    .button-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .back-to-home-btn,
+    .cart-btn {
+      position: absolute;
+      top: 10px;
+      z-index: 999;
+    }
+
+    .back-to-home-btn {
+      left: 10px;
+    }
+
+    .cart-btn {
+      right: 10px;
+    }
+
+    /* Toast Styling */
+    .toast {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      z-index: 1050;
+    }
+
+    /* Styling the Modal */
+    .modal-content {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .modal-header {
+
+      color: white;
+      border-bottom: 2px solid #ddd;
+      padding: 15px;
+    }
+
+    .modal-header .btn-close {
+      font-size: 1.5rem;
+      opacity: 1;
+    }
+
+    .modal-body {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .modal-body h4 {
+      font-size: 24px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .modal-body p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .modal-footer {
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-secondary {
+      background-color: #f8f9fa;
+      border: none;
+      font-weight: bold;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e2e6ea;
+    }
+
+    .modal-body img {
+      width: 80%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .header {
+      background: #000000;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      position: relative;
+    }
+
+    h1 {
+      color: #ffffff;
+      margin-left: 80px;
+      /* Add left margin to make space for the logo */
+    }
+
+    .logo {
+      width: 50px;
+      /* Adjust the logo size */
+      height: auto;
+      position: absolute;
+      left: 20px;
+      /* Position the logo on the left */
+      top: 50%;
+      transform: translateY(-50%);
+      /* Vertically center the logo */
+    }
+
+    .store-name {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      animation: scroll-left 10s linear infinite;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(100%);
+      }
+
+      80% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .footer {
+      background: #ffffff;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 15px;
+    }
+
+    .footer-icon {
+      text-align: center;
+      color: #000000;
+      text-decoration: none;
+    }
+
+    .footer-icon i {
+      font-size: 24px;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    /* Styling for product modal */
+    .modal-body {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .product-image img {
+      max-width: 200px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 5px;
+      background-color: #fff;
+    }
+
+    .product-details h5 {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .product-details p {
+      margin: 5px 0;
+    }
+    </style>
+</head>
+
+<body>
+    <br>
+    <!-- Header -->
+    <div class="container">
+        <div class="header text-center">
+            <!-- Logo -->
+            <img src="https://img5.pic.in.th/file/secure-sv1/9c23de27-28eb-4f02-83a4-b7138d7f7d57.jpeg" alt="Logo"
+                class="logo" />
+            <h1 class="store-name mb-0">keyboard collection</h1>
+        </div>
+
+
+        <!-- Product Grid -->
+        <div class="product-container">
+            <!-- Product Card 1 -->
+            <div class="product-card">
+                <img src="https://img5.pic.in.th/file/secure-sv1/27a3993a-b6ea-4172-8017-6fe68cd7853d.jpeg"
+                    alt="Akko 30688" class="product-image" />
+                <div class="product-info">
+                    <div class="product-name">Akko 30688</div>
+                    <br>
+                    <button class="btn-buy"
+                        onclick="showModal('Akko 30688', 2790, 'https://img5.pic.in.th/file/secure-sv1/27a3993a-b6ea-4172-8017-6fe68cd7853d.jpeg','คีย์บอร์ด Akko 3068B Plus Prunus Lannesiana RGB Bluetooth Wireless Hotswap Mechanical Keyboard คีย์บอร์ดไร้สาย')">
+                        ฿2,790
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="product-card">
+                <img src="https://img2.pic.in.th/pic/download-1d2feb19afbb1de0f.jpeg" alt="LOGITECH G213 PRODIGY "
+                    class="product-image" />
+                <div class="product-info">
+                    <div class="product-name">LOGITECH G213 PRODIGY </div>
+                    <br>
+                    <button class="btn-buy"
+                        onclick="showModal('LOGITECH G213 PRODIGY ', 1490, 'https://img2.pic.in.th/pic/download-1d2feb19afbb1de0f.jpeg','(MEMBRANE) (RGB LED) (EN/TH)')">
+                        ฿1,490
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card">
+                <img src="https://img5.pic.in.th/file/secure-sv1/download-213eb46a7c9ed7661.jpeg" alt="Keychron K4"
+                    class="product-image" />
+                <div class="product-info">
+                    <div class="product-name">Keychron K4</div>
+                    <br>
+                    <button class="btn-buy"
+                        onclick="showModal('Keychron K4', 4390, 'https://img5.pic.in.th/file/secure-sv1/download-213eb46a7c9ed7661.jpeg','WIRELESS KEYBOARD (คีย์บอร์ดไร้สาย) KEYCHRON K4 PRO (QMK/VIA) (BLACK) (KEYCHRON K PRO RED SWITCH - RGB - EN/TH)')">
+                        ฿4,390
+                    </button>
+                </div>
+            </div>
+            <!-- Product Card 4 -->
+            <div class="product-card">
+                <img src="https://img5.pic.in.th/file/secure-sv1/download-3607de7cb81fbb7fc.jpeg" alt="Wooting 60HE+ "
+                    class="product-image" />
+                <div class="product-info">
+                    <div class="product-name">Wooting 60HE+ </div>
+                    <br>
+                    <button class="btn-buy"
+                        onclick="showModal('Wooting 60HE+ ', 11550, 'https://img5.pic.in.th/file/secure-sv1/download-3607de7cb81fbb7fc.jpeg','คีบอร์ดเกมมิ่ง Mechanical 60% Rapid Trigger แท้จาก wooting รับประกัน4 ปี')">
+                        ฿11,550
+                    </button>
+                </div>
+            </div>
+            <!-- Product Card 5 -->
+            <div class="product-card">
+                <img src="https://img2.pic.in.th/pic/download-4bd53462093eba714.jpeg" alt="Razer BlackWidow V3"
+                    class="product-image" />
+                <div class="product-info">
+                    <div class="product-name">Razer BlackWidow V3</div>
+                    <br>
+                    <button class="btn-buy"
+                        onclick="showModal('Razer BlackWidow V3', 3390, 'https://img2.pic.in.th/pic/download-4bd53462093eba714.jpeg','Razer BlackWidow V3 Mini HyperSpeed (คีย์บอร์ดเกมมิ่ง) (คีย์ Eng)')">
+                        ฿3,390
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex">
+          <!-- Product Image -->
+          <div class="product-image me-4">
+            <img id="modalProductImage" src="" alt="Product Image" class="img-fluid">
+          </div>
+          <!-- Product Details -->
+          <div class="product-details">
+            <h5 id="modalProductName">Product Name</h5>
+            <br><br>
+            <p><strong>รายละเอียดสินค้า:</strong> <span id="modalProductDescription"></span></p>
+            <br><br><br>
+            <p><strong>ราคา:</strong> <span id="modalProductPrice"></span></p>
+
+            <div class="quantity-controls mt-3">
+              
+              <div class="d-flex align-items-center">
+                <button class="btn btn-outline-secondary me-2" onclick="decreaseQuantity()">-</button>
+                <input type="number" id="productQuantity" class="form-control text-center" value="1" min="1"
+                  style="width: 60px;" />
+                <button class="btn btn-outline-secondary ms-2" onclick="increaseQuantity()">+</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            <i class="fa-solid fa-check"></i> ซื้อเลย
+        </button>
+        
+          <button type="button" class="btn btn-primary" onclick="addToCart()">
+            <i class="fas fa-shopping-cart"></i> เพิ่มสินค้าในตะกร้า
+        </button>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="toast-container">
+        <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto">แจ้งเตือน</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">เพิ่มสินค้าลงในตะกร้าเรียบร้อย!</div>
+        </div>
+      </div>
+
+    <div class="footer">
+        <a href="index.html" class="footer-icon">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="#" class="footer-icon" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-list"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="mouse.html">mouse</a></li>
+            <li><a class="dropdown-item" href="headphones.html">headphones</a></li>
+            <li><a class="dropdown-item" href="keyboard.html">keyboard</a></li>
+            <li><a class="dropdown-item" href="chair.html">chair</a></li>
+        </ul>
+
+        <a href="cart.html" class="footer-icon position-relative">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                0
+            </span>
+        </a>
+        <a href="#" class="footer-icon">
+            <i class="fas fa-user"></i>
+        </a>
+    </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
