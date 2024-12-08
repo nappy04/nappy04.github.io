@@ -320,6 +320,35 @@
     .product-details p {
       margin: 5px 0;
     }
+    .footer {
+  background: #ffffff; /* พื้นหลังสีขาว */
+  padding: 20px; /* ระยะห่างภายใน */
+  position: fixed; /* ติดอยู่ที่ด้านล่าง */
+  bottom: 10px; /* เว้นระยะห่างเล็กน้อยจากขอบล่าง */
+  left: 50%; /* จัดให้อยู่ตรงกลาง */
+  transform: translateX(-50%); /* จัดตำแหน่งให้แน่นอน */
+  width: 70%; /* กำหนดความกว้าง */
+  display: flex; /* ใช้ flexbox */
+  justify-content: space-between; /* ระยะห่างระหว่างไอคอน */
+  align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
+  border-radius: 15px; /* มุมโค้งมน */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+  z-index: 1000; /* ให้อยู่ด้านบน */
+}
+
+
+
+@media (max-width: 768px) {
+  .footer {
+    width: 90%; /* ขยายความกว้างให้พอดีกับจอเล็ก */
+    padding: 15px; /* ลด padding สำหรับจอเล็ก */
+    bottom: 15px; /* เพิ่มระยะห่างจากขอบล่าง */
+  }
+
+  .product-card {
+    margin-bottom: 110px; /* เว้นระยะห่างมากขึ้นสำหรับจอเล็ก */
+  }
+}
   </style>
 </head>
 
