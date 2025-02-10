@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap"rel="stylesheet"/>
+
+    <style>
+      body {
+        font-family: "Sarabun", sans-serif;
+        background: linear-gradient(135deg, #fbb6c3, #d0a4e2);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+      }
+      header {
+        background-color: #f472b6;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .chat-container {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
+      .message {
+        background-color: #f472b6;
+        color: white;
+        padding: 15px;
+        border-radius: 20px;
+        max-width: 300px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-out;
+      }
+      .message-container {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .btn-next {
+        background-color: #f472b6;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s ease;
+      }
+      .btn-next:hover {
+        background-color: #ec4899;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>ข้อความจากแฟ้มถึงเดียร์</header>
+
+    <div class="chat-container" id="chatContainer"></div>
+
+    <div
+      id="nextPageButtonContainer"
+      style="display: none; padding: 20px; text-align: center"
+    >
+      <button class="btn-next" onclick="goToNextPage()">ไปหน้าถัดไป</button>
+    </div>
+
+    <script>
+      const loveMessages = [
+        "ก๊อกๆ เดียร์ๆอยู่มั้ย",
+        "เค้ามีอะไรจะบอกเธอด้วยนะ",
+        "เค้าขอโทษที่เค้าอาจะงี่เง่ามากไป",
+        "ชอบทำให้เธอปวดหัวหรืออึดอัดอยู่บ่อยๆ",
+        "เค้าขอโทษที่อยู่ไกลไปดูแลเธอไม่ได้",
+        "ขอโทษที่ไม่ได้พาไปกินของอร่อยหรือไม่ได้อยู่ด้วยทุกวัน",
+        "เค้าคิดถึงเธอมากๆเลย",
+        "เค้าอยากบอกว่ารักเธอมากๆ เลยรู้มั้ย",
+        "อยู่กับเค้าไปนานๆ เลยนะ",
+        "เค้ารักเธอนะ",
+      ];
+
+      let index = 0;
+      let chatContainer = document.getElementById("chatContainer");
+      let nextPageButtonContainer = document.getElementById(
+        "nextPageButtonContainer"
+      );
+
+      function displayMessages() {
+        if (index < loveMessages.length) {
+          const message = loveMessages[index];
+          const messageDiv = document.createElement("div");
+          messageDiv.classList.add("message-container");
+
+          const messageText = document.createElement("div");
+          messageText.classList.add("message");
+          messageText.innerText = message;
+
+          messageDiv.appendChild(messageText);
+          chatContainer.appendChild(messageDiv);
+          index++;
+        } else {
+          clearInterval(messageInterval);
+          nextPageButtonContainer.style.display = "block";
+        }
+      }
+
+      const messageInterval = setInterval(displayMessages, 2000);
+
+      function goToNextPage() {
+        window.location.href = "lastpage.html"; // ไปยังหน้าถัดไป
+      }
+    </script>
+  </body>
+</html>

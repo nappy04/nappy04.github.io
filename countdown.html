@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #FBCFE8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            color: #EC4899;
+        }
+
+        /* สไตล์สำหรับหัวใจ */
+        .heart {
+            position: absolute;
+            font-size: 3rem;
+            animation: fallingHearts 4s infinite;
+            animation-timing-function: ease-in;
+        }
+
+        /* การเคลื่อนไหวให้หัวใจตกลง */
+        @keyframes fallingHearts {
+            0% {
+                top: -50px;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
+        /* ตำแหน่งของหัวใจที่สุ่ม */
+        .heart:nth-child(1) {
+            left: 10%;
+            animation-duration: 3s;
+        }
+        .heart:nth-child(2) {
+            left: 20%;
+            animation-duration: 4s;
+        }
+        .heart:nth-child(3) {
+            left: 30%;
+            animation-duration: 5s;
+        }
+        .heart:nth-child(4) {
+            left: 40%;
+            animation-duration: 3s;
+        }
+        .heart:nth-child(5) {
+            left: 50%;
+            animation-duration: 6s;
+        }
+        .heart:nth-child(6) {
+            left: 60%;
+            animation-duration: 4.5s;
+        }
+        .heart:nth-child(7) {
+            left: 70%;
+            animation-duration: 4.2s;
+        }
+        .heart:nth-child(8) {
+            left: 80%;
+            animation-duration: 5s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 id="countdown"></h1>
+
+    <!-- เพิ่มหัวใจที่ตกลงมา -->
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💘</div>
+    <div class="heart">💝</div>
+    <div class="heart">💕</div>
+    <div class="heart">💞</div>
+    <div class="heart">💓</div>
+    <div class="heart">💗</div>
+
+    <script>
+        let seconds = 3; // เริ่มต้นที่ 3 วินาที
+        const countdownElement = document.getElementById("countdown");
+
+        // ฟังก์ชันในการเปลี่ยนหน้า
+        const goToNextPage = () => {
+            window.location.href = "moments.html"; // เปลี่ยน URL ไปยัง /moments
+        };
+
+        const timer = setInterval(() => {
+            countdownElement.innerText = seconds; // แสดงจำนวนวินาที
+            if (seconds === 0) {
+                clearInterval(timer); // หยุดการนับถอยหลัง
+                goToNextPage(); // ไปยังหน้าถัดไปเมื่อเวลาเป็น 0
+            } else {
+                seconds -= 1; // ลดจำนวนวินาที
+            }
+        }, 1000); // ทุก 1 วินาที
+    </script>
+
+</body>
+</html>

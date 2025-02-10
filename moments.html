@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sriracha&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+        }
+        h1 {
+            font-family: 'Sriracha', cursive;
+        }
+        h3 {
+            font-family: 'Prompt', sans-serif;
+            font-weight: 600;
+        }
+        p {
+            font-family: 'Prompt', sans-serif;
+            font-weight: 300;
+        }
+    
+        /* เพิ่ม CSS นี้เพื่อลดขนาดของวิดีโอใน Modal */
+        #videoModal video {
+            max-width: 50%;
+            max-height: 50%;
+        }
+    </style>
+    
+</head>
+<body class="min-h-screen bg-pink-100 flex flex-col items-center justify-center py-16">
+    <div class="bg-white/90 p-8 md:p-12 rounded-3xl shadow-2xl max-w-6xl w-full mx-4">
+        <h1 class="text-4xl md:text-6xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-4">
+            Our Special Memories
+        </h1>
+        <br>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog Item 1 -->
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://img2.pic.in.th/pic/IMG_2816a7891c9696b4c687.jpg" alt="one" class="w-full h-full object-cover transform  transition-transform duration-500"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0  transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 group-hover:text-pink-500 transition-colors duration-300">
+                        วันแรกที่เราเจอกัน
+                    </h3>
+                    <p class="text-gray-600 mt-2 line-clamp-3">
+                        แล้วเธอนั่งเล่นเกมให้เค้าดู ตอนนั้นเค้าอยากจะบีบแก้มเธอมากๆเลยนะรู้มั้ย
+                    </p>
+                </div>
+            </div>
+
+            <!-- Blog Item 2 -->
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://img5.pic.in.th/file/secure-sv1/IMG_2825f3a9fd470cd3aed2.jpg" alt="two" class="w-full h-full object-cover transform  transition-transform duration-500"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0  transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 group-hover:text-pink-500 transition-colors duration-300">
+                        เธอนอนกอดเค้าด้วย
+                    </h3>
+                    <p class="text-gray-600 mt-2 line-clamp-3">
+                        เธอน่ารักที่สุดเลย อยากจะกอดทุกวันเลย
+                    </p>
+                </div>
+            </div>
+
+            <!-- Blog Item 3 -->
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://img2.pic.in.th/pic/IMG_2935.jpg" alt="Vacation Memories" class="w-full h-full object-cover transform  transition-transform duration-500"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0  transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 group-hover:text-pink-500 transition-colors duration-300">
+                        กอดอีกแล้วกอดทุกวันเลย
+                    </h3>
+                    <p class="text-gray-600 mt-2 line-clamp-3">
+                        นอนทั้งวันเลยคนนี้
+                    </p>
+                </div>
+            </div>
+
+            <!-- Blog Item 4 -->
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://img2.pic.in.th/pic/IMG_2837df8bc921bc0ce942.jpg" alt="Vacation Memories" class="w-full h-full object-cover transform  transition-transform duration-500"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0  transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 group-hover:text-pink-500 transition-colors duration-300">
+                        นอนอีกแล้ว
+                    </h3>
+                    <p class="text-gray-600 mt-2 line-clamp-3">
+                        ชอบทุกครั้งที่ได้กอด ได้จับมือเลยรู้มั้ย
+                    </p>
+                </div>
+            </div>
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer" onclick="openModal('/IMG_2863.mp4')">
+                <div class="relative h-64 overflow-hidden">
+                    <video class="w-full h-full object-cover" muted>
+                        <source src="/IMG_2863.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 group-hover:text-pink-500 transition-colors duration-300">
+                        ตรวจเลือดให้เค้าด้วย
+                    </h3>
+                    <p class="text-gray-600 mt-2">เจ็บนิดนึง</p>
+                    <button class="bg-pink-500 text-white rounded-full px-6 py-2 mt-4 hover:bg-pink-600 transition duration-300" onclick="openModal('/IMG_2863.mp4')">
+                        คลิกเพื่อดูวิดีโอ
+                    </button>
+                </div>
+            </div>
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer" onclick="openModal('/271c297ffaac40da8fa82ee4d5f85bce.mp4')">
+                <div class="relative h-64 overflow-hidden">
+                    <video class="w-full h-full object-cover" muted>
+                        <source src="/271c297ffaac40da8fa82ee4d5f85bce.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 group-hover:text-pink-500 transition-colors duration-300">
+                        ไม่เมา ไม่เมา ไม่มา
+                    </h3>
+                    <p class="text-gray-600 mt-2">ไม่เมาที่แปลว่า เมามากๆ</p>
+                    <button class="bg-pink-500 text-white rounded-full px-6 py-2 mt-4 hover:bg-pink-600 transition duration-300" onclick="openModal('/271c297ffaac40da8fa82ee4d5f85bce.mp4')">
+                        คลิกเพื่อดูวิดีโอ
+                    </button>
+                </div>
+            </div>
+             <!-- Blog Item 7 -->
+             <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://img5.pic.in.th/file/secure-sv1/IMG_2923d6f15c95a0076593.jpg" alt="Vacation Memories" class="w-full h-full object-cover  transition-transform duration-500"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0  transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 group-hover:text-pink-500 transition-colors duration-300">
+                        นั่งจับมือเค้าด้วย
+                    </h3>
+                    <p class="text-gray-600 mt-2 line-clamp-3">
+                        วันสุดท้ายที่อยู่ด้วยกัน
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center mt-8">
+            <a href="message.html">
+                <button class="bg-pink-500 text-white rounded-full px-6 py-2 hover:bg-pink-600 transition duration-300">
+                    ไปหน้าถัดไป
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden">
+        <div class="relative w-full max-w-3xl">
+            <button class="absolute top-2 right-2 bg-white text-black px-3 py-1 rounded-full" onclick="closeModal()">X</button>
+            <video id="modalVideo" class="w-full h-auto" controls autoplay></video>
+        </div>
+    </div>
+
+    <script>
+        function openModal(videoSrc) {
+            document.getElementById('modalVideo').src = videoSrc;
+            document.getElementById('videoModal').classList.remove('hidden');
+        }
+        function closeModal() {
+            document.getElementById('modalVideo').pause();
+            document.getElementById('videoModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
